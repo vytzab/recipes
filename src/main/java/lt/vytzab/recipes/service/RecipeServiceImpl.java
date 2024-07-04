@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,5 +83,20 @@ public class RecipeServiceImpl implements RecipeService{
         }
         recipeRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public List<RecipeDTO> getRecipesByMealType(boolean isBreakfast, boolean isLunch, boolean isDinner) {
+        List<Recipe> recipes;
+        if (isBreakfast) {
+            recipes = recipeRepository.findByBreakfast(true);
+        } else if (isLunch) {
+            recipes = recipeRepository.findByLunch(true);
+        } else if (isDinner) {
+            recipes = recipeRepository.findByDinner(true);
+        } else {
+            recipes = new ArrayList<>();
+        }
+        return recipes.stream().map(RecipeMapper.INSTANCE::mapRecipeToRecipeDTO).collect(Collectors.toList());
     }
 }

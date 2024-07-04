@@ -25,4 +25,7 @@ public class RecipeDTO {
         private double totalCarbs;
         private double totalFat;
         private int totalKcal;
+        private boolean isBreakfast;
+        private boolean isLunch;
+        private boolean isDinner;
 }

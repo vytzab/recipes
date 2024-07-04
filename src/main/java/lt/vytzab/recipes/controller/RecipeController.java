@@ -19,14 +19,15 @@ public class RecipeController {
 
     @PostMapping("/addRecipe")
     public ResponseEntity<RecipeDTO> addRecipe(@RequestBody RecipeDTO recipeDTO) {
+        recipeDTO.setImage(recipeDTO.getName().replaceAll("\\s+","").toLowerCase());
         RecipeDTO savedRecipe = recipeService.addRecipe(recipeDTO);
         return new ResponseEntity<>(savedRecipe, HttpStatus.CREATED);
     }
 
     @GetMapping("/getAllRecipes")
     public ResponseEntity<List<RecipeDTO>> getAllRecipes(){
-        List<RecipeDTO> allIngredients = recipeService.getAllRecipes();
-        return new ResponseEntity<>(allIngredients, HttpStatus.OK);
+        List<RecipeDTO> allRecipes = recipeService.getAllRecipes();
+        return new ResponseEntity<>(allRecipes, HttpStatus.OK);
     }
 
     @GetMapping("/getRecipe/{id}")
@@ -43,5 +44,14 @@ public class RecipeController {
     @DeleteMapping("/deleteRecipe/{id}")
     public ResponseEntity<RecipeDTO> deleteRecipe(@PathVariable("id") Integer id) {
         return recipeService.deleteRecipe(id);
+    }
+
+    @GetMapping("/getRecipesByMealType")
+    public ResponseEntity<List<RecipeDTO>> getRecipesByMealType(
+            @RequestParam boolean isBreakfast,
+            @RequestParam boolean isLunch,
+            @RequestParam boolean isDinner) {
+        List<RecipeDTO> recipes = recipeService.getRecipesByMealType(isBreakfast, isLunch, isDinner);
+        return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 }

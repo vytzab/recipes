@@ -16,6 +16,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private String description;
 
@@ -26,16 +27,24 @@ public class Recipe {
             @AttributeOverride(name = "amount", column = @Column(name = "amount"))
     })
     private List<IngredientDTOWithAmount> ingredients;
+
     private int preparationTime;
     private int cookingTime;
     private int totalTime;
+
     @Lob
     private String instructions;
+
     private int servings;
     private String difficultyLevel;
     private String image;
+
     private double totalProtein;
     private double totalCarbs;
     private double totalFat;
     private int totalKcal;
+
+    private boolean breakfast;
+    private boolean lunch;
+    private boolean dinner;
 }

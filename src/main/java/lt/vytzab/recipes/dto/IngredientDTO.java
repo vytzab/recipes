@@ -14,4 +14,5 @@ public class IngredientDTO {
     private double carbs;
     private double fat;
     private int kcal;
+    private String image;
 }
