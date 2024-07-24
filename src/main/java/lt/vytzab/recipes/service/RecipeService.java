@@ -11,5 +11,4 @@ public interface RecipeService {
     ResponseEntity<RecipeDTO> getRecipe(Integer id);
     RecipeDTO updateRecipe(Integer id, RecipeDTO recipeDTO);
     ResponseEntity<RecipeDTO> deleteRecipe(Integer id);
-    List<RecipeDTO> getRecipesByMealType(boolean isBreakfast, boolean isLunch, boolean isDinner);
-}
+    List<RecipeDTO> getRecipesByMealType(boolean isBreakfast, boolean isLunch, boolean isDinner);}

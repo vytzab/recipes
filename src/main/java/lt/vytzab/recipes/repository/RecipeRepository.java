@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
-    List<Recipe> findByBreakfast(boolean isBreakfast);
-    List<Recipe> findByLunch(boolean isLunch);
-    List<Recipe> findByDinner(boolean isDinner);
+    List<Recipe> findByBreakfastOrLunchOrDinner(boolean isBreakfast, boolean isLunch, boolean isDinner);
 }

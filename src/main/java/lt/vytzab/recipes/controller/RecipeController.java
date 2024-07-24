@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -48,10 +49,16 @@ public class RecipeController {
 
     @GetMapping("/getRecipesByMealType")
     public ResponseEntity<List<RecipeDTO>> getRecipesByMealType(
-            @RequestParam boolean isBreakfast,
-            @RequestParam boolean isLunch,
-            @RequestParam boolean isDinner) {
+            @RequestParam(required = false) boolean isBreakfast,
+            @RequestParam(required = false) boolean isLunch,
+            @RequestParam(required = false) boolean isDinner) {
+
+        // If none of the parameters are provided, return an empty list
+        if (!isBreakfast && !isLunch && !isDinner) {
+            return ResponseEntity.ok(Collections.emptyList());
+        }
+
         List<RecipeDTO> recipes = recipeService.getRecipesByMealType(isBreakfast, isLunch, isDinner);
-        return new ResponseEntity<>(recipes, HttpStatus.OK);
+        return ResponseEntity.ok(recipes);
     }
 }

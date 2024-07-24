@@ -87,16 +87,9 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Override
     public List<RecipeDTO> getRecipesByMealType(boolean isBreakfast, boolean isLunch, boolean isDinner) {
-        List<Recipe> recipes;
-        if (isBreakfast) {
-            recipes = recipeRepository.findByBreakfast(true);
-        } else if (isLunch) {
-            recipes = recipeRepository.findByLunch(true);
-        } else if (isDinner) {
-            recipes = recipeRepository.findByDinner(true);
-        } else {
-            recipes = new ArrayList<>();
-        }
-        return recipes.stream().map(RecipeMapper.INSTANCE::mapRecipeToRecipeDTO).collect(Collectors.toList());
+        return recipeRepository.findByBreakfastOrLunchOrDinner(isBreakfast, isLunch, isDinner)
+                .stream()
+                .map(RecipeMapper.INSTANCE::mapRecipeToRecipeDTO)
+                .collect(Collectors.toList());
     }
 }
